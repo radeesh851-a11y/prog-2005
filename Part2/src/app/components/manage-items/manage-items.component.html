@@ -1,0 +1,318 @@
+<div class="manage-container">
+  <div class="page-header">
+    <h1>📦 Manage Inventory Items</h1>
+    <p>Add, update, or delete items from your inventory</p>
+  </div>
+
+  <!-- Message Area -->
+  <div *ngIf="message" [class]="'message ' + messageType">
+    {{ message }}
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab === 'add'" 
+      (click)="setActiveTab('add')"
+      class="tab-button">
+      ➕ Add Item
+    </button>
+    <button 
+      [class.active]="activeTab === 'update'" 
+      (click)="setActiveTab('update')"
+      class="tab-button">
+      ✏️ Update Item
+    </button>
+    <button 
+      [class.active]="activeTab === 'delete'" 
+      (click)="setActiveTab('delete')"
+      class="tab-button">
+      🗑️ Delete Item
+    </button>
+    <button 
+      [class.active]="activeTab === 'view'" 
+      (click)="setActiveTab('view')"
+      class="tab-button">
+      📊 View Items
+    </button>
+  </div>
+
+  <!-- Add Item Tab -->
+  <div *ngIf="activeTab === 'add'" class="tab-content">
+    <h2>Add New Item</h2>
+    <form (ngSubmit)="addItem()" #addForm="ngForm" class="item-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="addItemId">Item ID*</label>
+          <input 
+            type="text" 
+            id="addItemId" 
+            name="addItemId"
+            [(ngModel)]="newItem.itemId" 
+            required 
+            placeholder="e.g., ELEC001">
+        </div>
+        <div class="form-group">
+          <label for="addItemName">Item Name*</label>
+          <input 
+            type="text" 
+            id="addItemName" 
+            name="addItemName"
+            [(ngModel)]="newItem.itemName" 
+            required 
+            placeholder="e.g., Laptop">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="addCategory">Category*</label>
+          <select id="addCategory" name="addCategory" [(ngModel)]="newItem.category" required>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="addQuantity">Quantity*</label>
+          <input 
+            type="number" 
+            id="addQuantity" 
+            name="addQuantity"
+            [(ngModel)]="newItem.quantity" 
+            required 
+            min="0" 
+            placeholder="0">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="addPrice">Price ($)*</label>
+          <input 
+            type="number" 
+            id="addPrice" 
+            name="addPrice"
+            [(ngModel)]="newItem.price" 
+            required 
+            min="0.01" 
+            step="0.01" 
+            placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label for="addSupplier">Supplier Name*</label>
+          <input 
+            type="text" 
+            id="addSupplier" 
+            name="addSupplier"
+            [(ngModel)]="newItem.supplierName" 
+            required 
+            placeholder="e.g., Tech Supplies Co">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="addStockStatus">Stock Status*</label>
+          <select id="addStockStatus" name="addStockStatus" [(ngModel)]="newItem.stockStatus" required>
+            <option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="addPopular">Popular Item*</label>
+          <select id="addPopular" name="addPopular" [(ngModel)]="newItem.popularItem" required>
+            <option *ngFor="let option of popularOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="addComment">Comment (Optional)</label>
+        <textarea 
+          id="addComment" 
+          name="addComment"
+          [(ngModel)]="newItem.comment" 
+          rows="3" 
+          placeholder="Additional notes about the item"></textarea>
+      </div>
+
+      <button type="submit" [disabled]="!addForm.valid" class="btn btn-primary">Add Item</button>
+    </form>
+  </div>
+
+  <!-- Update Item Tab -->
+  <div *ngIf="activeTab === 'update'" class="tab-content">
+    <h2>Update Item</h2>
+    <div class="form-group">
+      <label for="updateSearchName">Search Item by Name*</label>
+      <div class="input-with-button">
+        <input 
+          type="text" 
+          id="updateSearchName" 
+          [(ngModel)]="updateSearchName" 
+          placeholder="Enter item name to update">
+        <button type="button" (click)="loadItemForUpdate()" class="btn btn-secondary">Load Item</button>
+      </div>
+    </div>
+
+    <form (ngSubmit)="updateExistingItem()" #updateForm="ngForm" class="item-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="updateItemId">Item ID*</label>
+          <input 
+            type="text" 
+            id="updateItemId" 
+            name="updateItemId"
+            [(ngModel)]="updateItem.itemId" 
+            required 
+            placeholder="e.g., ELEC001">
+        </div>
+        <div class="form-group">
+          <label for="updateItemName">Item Name*</label>
+          <input 
+            type="text" 
+            id="updateItemName" 
+            name="updateItemName"
+            [(ngModel)]="updateItem.itemName" 
+            required 
+            placeholder="e.g., Laptop">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="updateCategory">Category*</label>
+          <select id="updateCategory" name="updateCategory" [(ngModel)]="updateItem.category" required>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="updateQuantity">Quantity*</label>
+          <input 
+            type="number" 
+            id="updateQuantity" 
+            name="updateQuantity"
+            [(ngModel)]="updateItem.quantity" 
+            required 
+            min="0" 
+            placeholder="0">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="updatePrice">Price ($)*</label>
+          <input 
+            type="number" 
+            id="updatePrice" 
+            name="updatePrice"
+            [(ngModel)]="updateItem.price" 
+            required 
+            min="0.01" 
+            step="0.01" 
+            placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label for="updateSupplier">Supplier Name*</label>
+          <input 
+            type="text" 
+            id="updateSupplier" 
+            name="updateSupplier"
+            [(ngModel)]="updateItem.supplierName" 
+            required 
+            placeholder="e.g., Tech Supplies Co">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="updateStockStatus">Stock Status*</label>
+          <select id="updateStockStatus" name="updateStockStatus" [(ngModel)]="updateItem.stockStatus" required>
+            <option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="updatePopular">Popular Item*</label>
+          <select id="updatePopular" name="updatePopular" [(ngModel)]="updateItem.popularItem" required>
+            <option *ngFor="let option of popularOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="updateComment">Comment (Optional)</label>
+        <textarea 
+          id="updateComment" 
+          name="updateComment"
+          [(ngModel)]="updateItem.comment" 
+          rows="3" 
+          placeholder="Additional notes about the item"></textarea>
+      </div>
+
+      <button type="submit" [disabled]="!updateForm.valid" class="btn btn-primary">Update Item</button>
+    </form>
+  </div>
+
+  <!-- Delete Item Tab -->
+  <div *ngIf="activeTab === 'delete'" class="tab-content">
+    <h2>Delete Item</h2>
+    <div class="form-group">
+      <label for="deleteItemName">Item Name*</label>
+      <div class="input-with-button">
+        <input 
+          type="text" 
+          id="deleteItemName" 
+          [(ngModel)]="deleteItemName" 
+          placeholder="Enter item name to delete">
+        <button type="button" (click)="initiateDelete()" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation -->
+    <div *ngIf="showDeleteConfirmation" class="confirmation-dialog">
+      <p>Are you sure you want to delete "{{ itemToDelete }}"?</p>
+      <div class="confirmation-buttons">
+        <button (click)="confirmDelete()" class="btn btn-danger">Yes, Delete</button>
+        <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Items Tab -->
+  <div *ngIf="activeTab === 'view'" class="tab-content">
+    <div class="view-controls">
+      <h2>View Items</h2>
+      <div class="button-group">
+        <button (click)="showAllItems()" class="btn btn-primary">Display All Items</button>
+        <button (click)="showPopularItems()" class="btn btn-secondary">Display Popular Items</button>
+      </div>
+    </div>
+
+    <div class="items-display">
+      <div *ngIf="items.length === 0" class="no-items">
+        <p>No items found</p>
+      </div>
+
+      <div *ngIf="items.length > 0" class="items-grid">
+        <div *ngFor="let item of items" class="item-card">
+          <div class="item-header">
+            <h4>{{ item.itemName }}</h4>
+            <span *ngIf="item.popularItem === 'Yes'" class="popular-badge">⭐ Popular</span>
+          </div>
+          <div class="item-details">
+            <p><strong>ID:</strong> {{ item.itemId }}</p>
+            <p><strong>Category:</strong> {{ item.category }}</p>
+            <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            <p><strong>Price:</strong> ${{ item.price.toFixed(2) }}</p>
+            <p><strong>Supplier:</strong> {{ item.supplierName }}</p>
+            <p><strong>Status:</strong> 
+              <!-- Using helper method instead of inline regex -->
+              <span [class]="getStatusClass(item.stockStatus)">
+                {{ item.stockStatus }}
+              </span>
+            </p>
+            <p *ngIf="item.comment"><strong>Comment:</strong> {{ item.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

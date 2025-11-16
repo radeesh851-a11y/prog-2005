@@ -1,0 +1,92 @@
+<div class="home-container">
+  <div class="hero-section">
+    <h1 class="hero-title">📦 Welcome to Inventory Management System</h1>
+    <p class="hero-subtitle">Efficiently manage your inventory with our comprehensive tracking system</p>
+  </div>
+
+  <div class="features-section">
+    <h2>Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">➕</div>
+        <h3>Add Items</h3>
+        <p>Quickly add new inventory items with detailed information including categories, suppliers, and pricing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <h3>Update & Edit</h3>
+        <p>Easily update existing items and keep your inventory information current and accurate.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Search & Filter</h3>
+        <p>Find items quickly with powerful search functionality and filtering options.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗑️</div>
+        <h3>Delete Items</h3>
+        <p>Remove items from inventory with confirmation prompts to prevent accidental deletions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Stock Tracking</h3>
+        <p>Monitor stock levels with automatic status indicators for in-stock, low stock, and out-of-stock items.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>Popular Items</h3>
+        <p>Track and display your most popular items to optimize inventory management.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="statistics-section">
+    <h2>Current Inventory Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card stat-primary">
+        <div class="stat-value">{{ totalItems }}</div>
+        <div class="stat-label">Total Items</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">{{ popularItemsCount }}</div>
+        <div class="stat-label">Popular Items</div>
+      </div>
+      <div class="stat-card stat-warning">
+        <div class="stat-value">{{ lowStockCount }}</div>
+        <div class="stat-label">Low Stock</div>
+      </div>
+      <div class="stat-card stat-danger">
+        <div class="stat-value">{{ outOfStockCount }}</div>
+        <div class="stat-label">Out of Stock</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="purpose-section">
+    <h2>Purpose of This Application</h2>
+    <div class="purpose-content">
+      <p>
+        This Inventory Management System is designed to help businesses efficiently track and manage their inventory.
+        Whether you're running a retail store, warehouse, or any business that deals with products, this application
+        provides all the essential tools you need.
+      </p>
+      <ul class="purpose-list">
+        <li>✓ Track multiple product categories including Electronics, Furniture, Clothing, Tools, and Miscellaneous items</li>
+        <li>✓ Monitor stock levels in real-time to prevent stockouts and overstock situations</li>
+        <li>✓ Maintain supplier information for easy reordering and relationship management</li>
+        <li>✓ Identify popular items to optimize inventory planning and purchasing decisions</li>
+        <li>✓ Secure data management with privacy and security considerations built-in</li>
+        <li>✓ User-friendly interface designed for both desktop and mobile devices</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Get Started</h2>
+    <p>Begin managing your inventory more effectively today!</p>
+    <div class="cta-buttons">
+      <a routerLink="/manage" class="cta-button primary">Manage Items</a>
+      <a routerLink="/search" class="cta-button secondary">Search Inventory</a>
+    </div>
+  </div>
+</div>

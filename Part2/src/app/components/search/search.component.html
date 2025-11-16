@@ -1,0 +1,63 @@
+<div class="search-container">
+  <div class="page-header">
+    <h1>🔍 Search Inventory</h1>
+    <p>Find items quickly by searching for their names</p>
+  </div>
+
+  <div class="search-section">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (keyup.enter)="performSearch()"
+        placeholder="Enter item name to search..."
+        class="search-input">
+      <button (click)="performSearch()" class="btn btn-primary">Search</button>
+      <button (click)="clearSearch()" class="btn btn-secondary">Clear</button>
+    </div>
+  </div>
+
+  <div class="results-section">
+    <div *ngIf="!hasSearched" class="search-prompt">
+      <div class="search-icon">🔎</div>
+      <p>Enter a search term and click Search to find items</p>
+    </div>
+
+    <div *ngIf="hasSearched && searchResults.length === 0" class="no-results">
+      <div class="no-results-icon">😕</div>
+      <h3>No Results Found</h3>
+      <p>No items match your search for "{{ searchTerm }}"</p>
+      <p class="hint">Try a different search term or check your spelling</p>
+    </div>
+
+    <div *ngIf="hasSearched && searchResults.length > 0">
+      <div class="results-header">
+        <h2>Search Results</h2>
+        <p class="results-count">Found {{ searchResults.length }} item(s) for "{{ searchTerm }}"</p>
+      </div>
+
+      <div class="items-grid">
+        <div *ngFor="let item of searchResults" class="item-card">
+          <div class="item-header">
+            <h4>{{ item.itemName }}</h4>
+            <span *ngIf="item.popularItem === 'Yes'" class="popular-badge">⭐ Popular</span>
+          </div>
+          <div class="item-details">
+            <p><strong>ID:</strong> {{ item.itemId }}</p>
+            <p><strong>Category:</strong> {{ item.category }}</p>
+            <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            <p><strong>Price:</strong> ${{ item.price.toFixed(2) }}</p>
+            <p><strong>Supplier:</strong> {{ item.supplierName }}</p>
+            <p><strong>Status:</strong> 
+              <!-- Using helper method instead of inline regex -->
+              <span [class]="getStatusClass(item.stockStatus)">
+                {{ item.stockStatus }}
+              </span>
+            </p>
+            <p *ngIf="item.comment"><strong>Comment:</strong> {{ item.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

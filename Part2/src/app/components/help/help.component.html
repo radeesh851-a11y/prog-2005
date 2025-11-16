@@ -1,0 +1,132 @@
+<div class="help-container">
+  <div class="page-header">
+    <h1>❓ Help & Support</h1>
+    <p>Find answers to common questions and troubleshooting guides</p>
+  </div>
+
+  <!-- Quick Start Guide -->
+  <div class="quick-start-section">
+    <h2>🚀 Quick Start Guide</h2>
+    <div class="quick-start-card">
+      <p class="intro-text">Welcome to the Inventory Management System! Here's how to get started:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Explore the Dashboard</h3>
+            <p>Visit the Home page to see current inventory statistics and system overview.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Add Your First Item</h3>
+            <p>Go to Manage Items → Add Item tab and fill in the product details.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Search and Manage</h3>
+            <p>Use the Search page to find items quickly, and the Manage Items page to update or delete them.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Review Security</h3>
+            <p>Check the Security page to understand privacy and security best practices for inventory systems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQs Section -->
+  <div class="faq-section">
+    <h2>📋 Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div *ngFor="let faq of faqs" class="faq-item" [class.expanded]="faq.expanded">
+        <div class="faq-question" (click)="toggleFAQ(faq)">
+          <span>{{ faq.question }}</span>
+          <span class="faq-icon">{{ faq.expanded ? '−' : '+' }}</span>
+        </div>
+        <div class="faq-answer" [class.show]="faq.expanded">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Troubleshooting Section -->
+  <div class="troubleshooting-section">
+    <h2>🔧 Troubleshooting Guide</h2>
+    <div class="troubleshooting-grid">
+      <div *ngFor="let issue of troubleshootingSteps" class="troubleshooting-card">
+        <div class="issue-icon">{{ issue.icon }}</div>
+        <h3>{{ issue.title }}</h3>
+        <p>{{ issue.solution }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Support Section -->
+  <div class="contact-section">
+    <h2>💬 Need More Help?</h2>
+    <div class="contact-card">
+      <p>If you couldn't find the answer to your question or need additional assistance, please reach out to our support team:</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-icon">📧</div>
+          <h4>Email Support</h4>
+          <!-- Escaped @ symbol to prevent Angular from treating it as a block directive -->
+          <p>support&#64;inventorymanager.com</p>
+          <p class="response-time">Response time: 24-48 hours</p>
+        </div>
+        <div class="contact-method">
+          <div class="contact-icon">📞</div>
+          <h4>Phone Support</h4>
+          <p>1-800-INVENTORY</p>
+          <p class="response-time">Mon-Fri, 9AM-5PM EST</p>
+        </div>
+        <div class="contact-method">
+          <div class="contact-icon">💬</div>
+          <h4>Live Chat</h4>
+          <p>Available on website</p>
+          <p class="response-time">Mon-Fri, 9AM-5PM EST</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="tips-section">
+    <h2>💡 Pro Tips</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Use descriptive Item IDs that include category codes (e.g., ELEC001 for electronics) for easier organization.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Regularly review items marked as "Low Stock" to prevent stockouts and maintain optimal inventory levels.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Use the Comment field to add important notes like reorder dates, special handling instructions, or seasonal information.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Mark your best-selling items as "Popular" to quickly identify which products need priority attention.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Keep supplier information up to date to streamline the reordering process when stock runs low.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">✅</span>
+        <p>Use consistent naming conventions for items to make searching and filtering more efficient.</p>
+      </div>
+    </div>
+  </div>
+</div>

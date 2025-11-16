@@ -1,0 +1,36 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <span class="nav-icon">📦</span>
+      <span class="nav-title">Inventory Manager</span>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle navigation">
+      <span class="hamburger" [class.active]="menuOpen"></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <ul class="nav-menu" [class.active]="menuOpen">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/manage" routerLinkActive="active" (click)="closeMenu()">Manage Items</a></li>
+      <li><a routerLink="/search" routerLinkActive="active" (click)="closeMenu()">Search</a></li>
+      <li><a routerLink="/security" routerLinkActive="active" (click)="closeMenu()">Security</a></li>
+      <li><a routerLink="/help" routerLinkActive="active" (click)="closeMenu()">Help</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Inventory Management System | PROG2005 Assessment 2 - Part 2</p>
+    <p>Built with Angular</p>
+  </div>
+</footer>
