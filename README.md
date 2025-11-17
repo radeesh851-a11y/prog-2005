@@ -1,6 +1,6 @@
 # PROG2005 Assessment 2 - Inventory Management System
 
-**Author:** Student Name  
+**Author:** Lahiru Radeeshan Gamaralage  
 **Unit:** PROG2005 Programming Mobile Systems  
 **Assessment:** Assessment 2 - TypeScript and Angular Application
 
@@ -190,6 +190,6 @@ I declare that this submission is my own original work, referenced appropriately
 
 ---
 
-**Submission Date:** [Insert Date]  
+**Submission Date:** 17/11/25  
 **Unit Code:** PROG2005  
 **Assessment:** Assessment 2 (40%)
